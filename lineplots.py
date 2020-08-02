@@ -1,32 +1,24 @@
 import pandas as pd
-import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
+
+plt.style.use('fivethirtyeight')
 
 data = pd.read_csv('data.csv')
+ids = data['Responder_id']
 ages = data['Age']
-dev_salaries = data['All_Devs']
-py_salaries = data['Python']
-js_salaries = data['JavaScript']
 
-plt.plot(ages, dev_salaries, color='#444444',
-         linestyle='--', label='All Devs')
+bins = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
 
-plt.plot(ages, py_salaries, label='Python')
+plt.hist(ages, bins=bins, edgecolor='black')
 
-overall_median = 57287
+# median_age = 29
+# color = '#fc4f30'
 
-plt.fill_between(ages, py_salaries, dev_salaries, 
-				 where=(py_salaries > dev_salaries), 
-				 interpolate=True, alpha=0.2, label='Above Average')
+# plt.legend()
 
-plt.fill_between(ages, py_salaries, dev_salaries, 
-				 where=(py_salaries <= dev_salaries), 
-				 interpolate=True, color='red', alpha=0.2, label='Below Average')
-
-plt.legend()
-
-plt.title('Median Salary (USD) by Age')
+plt.title('Ages of Respondents')
 plt.xlabel('Ages')
-plt.ylabel('Median Salary (USD)')
+plt.ylabel('Total Respondents')
 
 plt.tight_layout()
 
